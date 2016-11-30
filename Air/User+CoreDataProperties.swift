@@ -24,5 +24,9 @@ extension User {
     @NSManaged public var identify: String?
     @NSManaged public var image: Data?
     @NSManaged public var gender: String?
+    
+    static let ApplicationSupportDirectory = FileManager().urls(for: .applicationSupportDirectory,
+                                                                in: .userDomainMask).first!
+    static let StoreURL = ApplicationSupportDirectory.appendingPathComponent("Air.sqlite")
 
 }

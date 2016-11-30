@@ -18,5 +18,9 @@ extension Travel {
 
     @NSManaged public var time: String?
     @NSManaged public var houseName: String?
+    
+    static let ApplicationSupportDirectory = FileManager().urls(for: .applicationSupportDirectory,
+                                                                in: .userDomainMask).first!
+    static let StoreURL = ApplicationSupportDirectory.appendingPathComponent("Air.sqlite")
 
 }

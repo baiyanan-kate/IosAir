@@ -29,5 +29,9 @@ extension House {
     @NSManaged public var introduction: String?
     @NSManaged public var location: String?
     @NSManaged public var city: String?
+    
+    static let ApplicationSupportDirectory = FileManager().urls(for: .applicationSupportDirectory,
+                                                                in: .userDomainMask).first!
+    static let StoreURL = ApplicationSupportDirectory.appendingPathComponent("Air.sqlite")
 
 }
