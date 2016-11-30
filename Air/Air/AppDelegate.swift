@@ -103,6 +103,33 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return fetchList
     }
     
+    func addToContextForHouse(bed:String?,city:String?,equipment:String?,guest:String?,houseName:String?,image:UIImage?,introduction:String?,location:String?,owner:String?,price:String?,room:String?,toilet:String?,type:String?)->House{
+        let house = House(context: persistentContainer.viewContext)
+        house.bed = bed
+        house.city = city
+        house.equipment = equipment
+        house.guest  = guest
+        house.houseName = houseName
+        if let photo = image{
+        house.image = UIImagePNGRepresentation(photo)
+        }
+        house.introduction = introduction
+        house.location = location
+        house.owner = owner
+        house.price = price
+        house.room = room
+        house.toilet = toilet
+        house.type = type
+        
+        print("Saving to House")
+        
+        saveContext()
+        return house
+    }
+    
+    
+
+    
     func fetchContextForComment()->[Comment]?
     {
         var fetchList :[Comment]? = nil
@@ -202,14 +229,34 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         user.city = city
         user.email = email
         user.identify = identity
-        if let image = image{
-        user.image = UIImagePNGRepresentation(image)
+        if let photo = image{
+        user.image = UIImagePNGRepresentation(photo)
         }
         user.gender = gender
         print("updating the user")
         saveContext()
     }
     
+    
+    func addToContextForUser(userName:String?,phone:String?,birth:String?,city:String?,email:String?,identity:String?,image:UIImage?,gender:String?)->User{
+        let user = User(context: persistentContainer.viewContext)
+        user.userName = userName
+        user.phone = phone
+        user.birth = birth
+        user.city = city
+        user.email = email
+        user.identify = identity
+        if let photo = image{
+            user.image = UIImagePNGRepresentation(photo)
+        }
+        user.gender = gender
+
+        print("saving to User")
+        
+        saveContext()
+        
+        return user
+    }
     
     
     
