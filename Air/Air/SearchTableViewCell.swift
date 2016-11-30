@@ -12,8 +12,7 @@ class SearchTableViewCell: UITableViewCell {
     @IBOutlet weak var show: UIImageView!
     @IBOutlet weak var price: UILabel!
     @IBOutlet weak var name: UILabel!
-    @IBOutlet weak var star: UILabel!
-    @IBOutlet weak var comment: UILabel!
+    @IBOutlet weak var collectHouse: UIButton!
 
 
     override func awakeFromNib() {

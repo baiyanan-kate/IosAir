@@ -9,10 +9,41 @@
 import UIKit
 
 class RoomDetailTableViewController: UITableViewController {
+    
+    @IBOutlet weak var commentName: UILabel!
+    var house:House?
 
+    @IBOutlet weak var price: UILabel!
+    @IBOutlet weak var commentContent: UILabel!
+    @IBOutlet weak var commentPhoto: UIImageView!
+    @IBOutlet weak var introduction: UILabel!
+    @IBOutlet weak var toilet: UILabel!
+    @IBOutlet weak var bed: UILabel!
+    @IBOutlet weak var room: UILabel!
+    @IBOutlet weak var guest: UILabel!
+    @IBOutlet weak var owner: UIButton!
+    @IBOutlet weak var houseType: UILabel!
+    @IBOutlet weak var houseName: UILabel!
+    @IBOutlet weak var housePhoto: UIImageView!
+    @IBAction func buy(_ sender: UIButton) {
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        price.text = house?.price
+        introduction.text = house?.introduction
+        toilet.text = house?.toilet
+        bed.text = house?.bed
+        room.text = house?.room
+        guest.text = house?.guest
+        owner.setTitle(house?.owner, for: .normal)
+        houseType.text = house?.type
+        houseName.text = house?.houseName
+        if let photo = house?.image{
+            housePhoto.image = UIImage(data:photo)
 
+        }
+       
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 

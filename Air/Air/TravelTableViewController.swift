@@ -9,13 +9,59 @@
 import UIKit
 
 class TravelTableViewController: UITableViewController {
+    
+    @IBOutlet weak var line: UIImageView!
+    var travelList = [Travel]()
+    var travelName = ["马尔代夫","三亚"]
+    var recomList = [House]()
+    var recomName = ["top","left","right"]
+    var recomBed = ["2","3","4"]
+    var recomCity = ["北京","上海","深圳"]
+    var recomEquipment = ["无线网络","泳池","厨房"]
+    var recomGuest = ["3","1","0"]
+    var recomHouseName = ["田园小城","阳光暖房","海景房"]
+    var recomIntroduction = ["地理位置优越，距离地铁、公交站近","安静，逃离烦躁城市","面朝大海，春暖花开"]
+    var recomLication = ["北京交通大学","上海交通大学","浙江大学"]
+    var recomOwner = ["马丁","白玉","王小二"]
+    var recomPrince = ["￥345","￥333","￥100"]
+    var recomRoom = ["2","1","5"]
+    var recomToilet = ["1","2","2"]
+    var recomType = ["整套房间","独立房间","合住房间"]
+
+    
+    
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        print(House.StoreURL)
         
         self.tableView.separatorStyle = UITableViewCellSeparatorStyle.singleLine;
         
         self.tableView.separatorColor = UIColor.clear;
+        
+        if let appDelegate = (UIApplication.shared.delegate as? AppDelegate) {
+            if !FileManager().fileExists(atPath:Travel.StoreURL.path) {
+                let travelDemo1 = appDelegate.addToContextForTravel(time: "2016.7.8", houseName: "田园小城")
+                 let travelDemo2 = appDelegate.addToContextForTravel(time: "2016.8.8", houseName: "海景房")
+                    travelList.append(travelDemo1)
+                    travelList.append(travelDemo2)
+                
+                var i = 0
+                for name in recomName {
+                    let house = appDelegate.addToContextForHouse(bed: recomBed[i], city: recomCity[i], equipment: recomEquipment[i], guest: recomGuest[i], houseName: recomHouseName[i], image: UIImage(named:name), introduction: recomIntroduction[i], location: recomLication[i], owner: recomOwner[i], price: recomPrince[i], room: recomRoom[i], toilet: recomToilet[i], type: recomType[i])
+                    recomList.append(house)
+                    i = i+1
+                }
+                
+            } else {
+                if let fetchedList = appDelegate.fetchContextForTravel() {
+                    travelList += fetchedList }
+                if let fetchedList2 = appDelegate.fetchContextForHouse(){
+                    recomList += fetchedList2
+                }
+            }
+        }
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -34,20 +80,26 @@ class TravelTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 3
+        return travelList.count
     }
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "TravelCell", for: indexPath) as! TravelTableViewCell
         
-        cell.detail2.text = "2016.8.9 三亚"
-        cell.detail1.text = "2016.5.9 马尔代夫"
-        cell.photo2.image = UIImage(named: "home")
-        cell.photo1.image = UIImage(named: "home")
-        cell.line.image = UIImage(named: "travel4")
-
+        let travle = travelList[indexPath.row]
+        var houseImage:Data?
+        for house in recomList{
+            if travle.houseName == house.houseName{
+                houseImage = house.image
+            }
+        }
+        
+       
         // Configure the cell...
+        cell.detail.text = travle.time!+","+travle.houseName!
+        cell.line.image = UIImage(named: "travelFinal")
+        cell.show.image = UIImage(data: houseImage!)
 
         return cell
     }
