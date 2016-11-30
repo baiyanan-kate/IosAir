@@ -9,6 +9,8 @@
 import UIKit
 
 class SearchTableViewController: UITableViewController {
+    
+    var searchList = [House]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
