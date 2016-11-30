@@ -13,7 +13,8 @@ class RecomTableViewController: UITableViewController {
     
     var imageList = ["top","left","right"]
     var introList = ["***冬季阳光海景房","***家庭周末轰趴","***马尔代夫蜜月攻略"]
-
+    var recomList = [House]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
